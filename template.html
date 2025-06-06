@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>User Info to JSON</title>
+</head>
+<body>
+  <h1>User Info Collector</h1>
+  <button onclick="collectUserInfo()">Add New Tree</button>
+
+  <pre id="output"></pre>
+
+  <script>
+    function collectUserInfo() {
+      // Query user for information
+      const category = prompt("Which forest do you want this object added to?");
+      const name = prompt("What should we call this object?");
+      const image = prompt("Do you have an image to link to this object?");
+      const website = prompt("Do you have a website to link to this object?");
+      const facebook = prompt("Do you have a facebook to link to this object?");
+      const instagram = prompt("Do you have a instagram to link to this object?");
+
+      // Create JSON object
+      const userInfo = {
+        category: category,
+        name: name,
+        image: image,
+        website: website,
+        facebook: facebook,
+        instagram: instagram
+      };
+
+      // Convert to JSON string
+      const jsonString = JSON.stringify(userInfo, null, 2);
+
+      // Display in <pre> block
+      document.getElementById("output").textContent = jsonString;
+
+      // Optional: log to console
+      console.log("User JSON:", jsonString);
+    }
+  </script>
+</body>
+</html>

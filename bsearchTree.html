@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Interactive User BST</title>
+</head>
+<body>
+  <h1>User Organizer by Name</h1>
+  <button onclick="collectUser()">Add User</button>
+  <button onclick="displayUsers()">Display Sorted Users</button>
+  <pre id="output"></pre>
+
+  <script>
+    // BST Node
+    class Node {
+      constructor(user) {
+        this.user = user;
+        this.left = null;
+        this.right = null;
+      }
+    }
+
+    // Binary Search Tree
+    class UserBST {
+      constructor() {
+        this.root = null;
+      }
+
+      insert(user) {
+        const newNode = new Node(user);
+
+        if (this.root === null) {
+          this.root = newNode;
+        } else {
+          this._insertNode(this.root, newNode);
+        }
+      }
+
+      _insertNode(current, newNode) {
+        if (newNode.user.name.localeCompare(current.user.name) < 0) {
+          if (current.left === null) {
+            current.left = newNode;
+          } else {
+            this._insertNode(current.left, newNode);
+          }
+        } else {
+          if (current.right === null) {
+            current.right = newNode;
+          } else {
+            this._insertNode(current.right, newNode);
+          }
+        }
+      }
+
+      inOrderTraversal(node = this.root, result = []) {
+        if (node) {
+          this.inOrderTraversal(node.left, result);
+          result.push(node.user);
+          this.inOrderTraversal(node.right, result);
+        }
+        return result;
+      }
+    }
+
+    // Initialize tree
+    const userTree = new UserBST();
+
+    // Collect user input
+    function collectUser() {
+      const name = prompt("Enter your name:");
+      const age = prompt("Enter your age:");
+      const address = prompt("Enter your address:");
+      const phone = prompt("Enter your phone number:");
+
+      const user = { name, age, address, phone };
+      userTree.insert(user);
+
+      alert(`User "${name}" added!`);
+    }
+
+    // Display sorted users
+    function displayUsers() {
+      const sortedUsers = userTree.inOrderTraversal();
+      document.getElementById("output").textContent = JSON.stringify(sortedUsers, null, 2);
+    }
+  </script>
+</body>
+</html>
