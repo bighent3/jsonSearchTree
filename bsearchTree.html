@@ -1,10 +1,9 @@
-This is a simple HTML + JavaScript web application that allows a user to input personal information (name, age, address, phone) and stores each user in a Binary Search Tree (BST) based on their name. The application provides two main functionalities via buttons:
-
+This is a simple HTML + JavaScript web application that allows a user to input personal information 
+(name, age, address, phone) and stores each user in a Binary Search Tree (BST) based on their name. 
+The application provides two main functionalities via buttons:
 Add User: Prompts the user for input and adds them to the BST.
-
-Display Sorted Users: Displays the list of users sorted alphabetically by name using an in-order traversal of the BST.
-
-
+Display Sorted Users: Displays the list of users sorted alphabetically by name using an in-order 
+traversal of the BST.
 
 <!DOCTYPE html>
 <html>
@@ -37,25 +36,31 @@ Display Sorted Users: Displays the list of users sorted alphabetically by name u
       constructor() {
         this.root = null;  // Root node of the tree
       }
-
+      // Insert a user into the BST
       insert(user) {
         const newNode = new Node(user);
 
         if (this.root === null) {
+          // If tree is empty, set the new node as root
           this.root = newNode;
         } else {
+           // Otherwise, recursively find the correct spot
           this._insertNode(this.root, newNode);
         }
       }
 
+      // Helper method to recursively insert a node in the correct position
       _insertNode(current, newNode) {
+        // Compare names alphabetically
         if (newNode.user.name.localeCompare(current.user.name) < 0) {
+          // Insert into left subtree if new name is smaller
           if (current.left === null) {
             current.left = newNode;
           } else {
             this._insertNode(current.left, newNode);
           }
         } else {
+          // Insert into right subtree if new name is greater or equal
           if (current.right === null) {
             current.right = newNode;
           } else {
@@ -63,21 +68,25 @@ Display Sorted Users: Displays the list of users sorted alphabetically by name u
           }
         }
       }
-
+      
+      // In-order traversal: left -> root -> right
+      // This returns users sorted by name
       inOrderTraversal(node = this.root, result = []) {
         if (node) {
-          this.inOrderTraversal(node.left, result);
-          result.push(node.user);
-          this.inOrderTraversal(node.right, result);
+          this.inOrderTraversal(node.left, result); // Visit left subtree
+          result.push(node.user); // Add current user
+          this.inOrderTraversal(node.right, result); // Visit right subtree
         }
         return result;
       }
     }
 
     // Initialize tree
+     // Create a new empty UserBST instance
     const userTree = new UserBST();
 
     // Collect user input
+     // Prompt the user for information and insert into the tree
     function collectUser() {
       const name = prompt("Enter your name:");
       const age = prompt("Enter your age:");
@@ -90,9 +99,10 @@ Display Sorted Users: Displays the list of users sorted alphabetically by name u
       alert(`User "${name}" added!`);
     }
 
-    // Display sorted users
+    // Display all users in alphabetical order by name
     function displayUsers() {
       const sortedUsers = userTree.inOrderTraversal();
+      // Format the results as a indented JSON string
       document.getElementById("output").textContent = JSON.stringify(sortedUsers, null, 2);
     }
   </script>
