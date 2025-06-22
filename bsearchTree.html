@@ -1,3 +1,11 @@
+This is a simple HTML + JavaScript web application that allows a user to input personal information (name, age, address, phone) and stores each user in a Binary Search Tree (BST) based on their name. The application provides two main functionalities via buttons:
+
+Add User: Prompts the user for input and adds them to the BST.
+
+Display Sorted Users: Displays the list of users sorted alphabetically by name using an in-order traversal of the BST.
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -5,24 +13,29 @@
 </head>
 <body>
   <h1>User Organizer by Name</h1>
+    <!-- Button to collect new user data -->
   <button onclick="collectUser()">Add User</button>
+    <!-- Button to display all users sorted by name -->
   <button onclick="displayUsers()">Display Sorted Users</button>
+    <!-- Area where sorted users will be displayed -->
   <pre id="output"></pre>
 
   <script>
+      // Class representing a node in the Binary Search Tree (BST)
     // BST Node
     class Node {
       constructor(user) {
-        this.user = user;
-        this.left = null;
-        this.right = null;
+        this.user = user; // The user data object
+        this.left = null; // Left child (users with smaller names)
+        this.right = null; // Right child (users with larger names)
       }
     }
 
     // Binary Search Tree
+     // Class representing the Binary Search Tree for organizing users by name
     class UserBST {
       constructor() {
-        this.root = null;
+        this.root = null;  // Root node of the tree
       }
 
       insert(user) {
